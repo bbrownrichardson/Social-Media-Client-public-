@@ -27,15 +27,21 @@
 <PostScreen>:
     GridLayout:
         cols: 1
-        Button:
-            size_hint: 0.5, 0.25
-            id: private_messenger_button
-            text: 'Send Private\n   Message'
-            background_color: (0.0, 1.0, 1.0, 1.0)
-            on_press: root.manager.current = 'PrivateMessenger'
+        BoxLayout:
+            Button:
+                id: private_messenger_button
+                text: 'Send Private\n   Message'
+                background_color: (0.0, 1.0, 1.0, 1.0)
+                on_press: root.manager.current = 'PrivateMessenger'
+            Button:
+                background_color: (0.0, 1.0, 1.0, 1.0)
+                text: 'refresh timeline'
+                on_press: root.CreatePostWidgets()
         ScrollView:
-            Label:
-                id: post_label
+            GridLayout:
+                cols: 1
+                id: post_widget
+
         GridLayout:
             Button:
                 id: post_screen_button
@@ -65,4 +71,6 @@
                 id: Post_button
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 text: 'submit'
+                on_press: root.update_post()
+                on_release: root.manager.current = 'PostScreen'
 

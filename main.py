@@ -13,7 +13,6 @@ kv = Builder.load_file('my.kv')
 
 
 class ScreenApp(App):
-
     def build(self):
         # self.server_interface = MockServerInterface()
         self.manager = ScreenManager(transition=FallOutTransition())
