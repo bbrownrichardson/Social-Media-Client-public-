@@ -1,0 +1,38 @@
+<PrivateMessenger>:
+    GridLayout:
+        cols: 1
+        BoxLayout:
+            Button:
+                size_hint: .05, .1
+                id: return_to_timeline
+                text: 'timeline'
+                on_press: root.manager.current = 'PostScreen'
+            Label:
+                size_hint: .05, .9
+                text: 'Private Message'
+        ScrollView:
+            Label:
+                size_hint: None, 1.5
+                id: Messenger_Label
+                text:
+        BoxLayout:
+            TextInput:
+                size:
+                id: Messenger_text
+                text:
+            Button:
+                size_hint: .10,1
+                id: Messenger_button
+                text: 'send'
+
+<PostScreen>:
+    GridLayout:
+        cols: 1
+        Button:
+            id: private_messenger_button
+            text: 'Send Private\n   Message'
+            on_press: root.manager.current = 'PrivateMessenger'
+        ScrollView:
+            Label:
+                id: 'post_label'
+                text:
