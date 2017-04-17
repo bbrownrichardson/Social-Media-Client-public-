@@ -9,7 +9,7 @@ from mock_interface import MockServerInterface
 
 kv = Builder.load_file('my.kv')
 
-#ClientApp = App.get_running_app().server_interface
+# ClientApp = App.get_running_app().server_interface
 
 
 class ScreenApp(App):
