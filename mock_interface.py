@@ -16,7 +16,7 @@ class MockServerInterface(ServerInterface):
             }
         ]
 
-        return posts
+        return "uid"
 
     def add_post(self,content, parent_id=-1):
         pass
