@@ -7,7 +7,6 @@ import requests
 
 
 class PostScreen(Screen):
-    # This posts list is here just for test purposes
     r = requests.get('http://nsommer.wooster.edu/social/posts')
     json_info = json.loads(r.content)
     posts = json.loads(r.content)
@@ -25,9 +24,10 @@ class PostScreen(Screen):
                             "User ID: " + str(post['uid']) + "\n" + \
                             "Username: " + post['username'] + "\n" + \
                             "Time: " + post['time'] + "\n" +  \
-                            "Content: " + post['content']
-            parent_widget.add_widget(Button(id=post_owner,
-                text=post_content,
-                size_hint_y = 10)) # it is this size because the scrollview
-                                    # is being weird right now
+                            "Content: " + post['content'] + "\n" +  \
+                            "Parent ID: " + str(post['parentid']) + "\n" +  \
+                            "Upvotes: " + str(post['upvotes'])
 
+            parent_widget.add_widget(Button(id=post_owner, text=post_content,
+                                            size_hint_y=10))
+            # it is this size because the scrollview is being weird right now
