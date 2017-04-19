@@ -1,10 +1,9 @@
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from PostScreen import PostScreen
 from random import random
-
 
 
 class ScreenToPost(Screen):
@@ -15,10 +14,10 @@ class ScreenToPost(Screen):
         actual server to read from.
         :return: new "post"
         """
-        new_post_content = self.ids['Post_text'].text #text user puts in
+        new_post_content = self.ids['Post_text'].text # text user puts in
                                                       # textbox for a post
-        random_uid = random() #to generate a random int for the uid
-        random_postid = random() #to generate a random int for the postid
+        random_uid = random()  # to generate a random int for the uid
+        random_postid = random()  # to generate a random int for the postid
         temp_dict = {
             'uid': random_uid,
             'postid': random_postid,
@@ -28,12 +27,12 @@ class ScreenToPost(Screen):
             'upvotes': 3,
             'tags': ['greeting']
         }
-        self.ids['Post_text'].text = '' # clears the text
-        PostScreen.posts.append(temp_dict) # the test post list from
+        self.ids['Post_text'].text = ''  # clears the text
+        PostScreen.posts.append(temp_dict)  # the test post list from
                                             # PostScreen class
 
     def clear_post_text(self):
-        self.ids['Post_text'].text = '' #clears the text if user cancels
+        self.ids['Post_text'].text = ''  # clears the text if user cancels
                                         # making a post
 
     def popup_open(self):

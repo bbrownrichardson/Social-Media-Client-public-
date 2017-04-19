@@ -37,7 +37,7 @@
                 on_press: root.manager.current = 'ChoosePMRecipient'
             Button:
                 background_color: (0.0, 1.0, 1.0, 1.0)
-                text: 'refresh timeline'
+                text: 'Refresh Timeline'
                 on_press: root.CreatePostWidgets()
         ScrollView:
             GridLayout:
@@ -100,6 +100,46 @@
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 on_release: root.manager.current = 'PrivateMessenger'
 
+<CreateUserScreen>:
+    GridLayout:
+        cols: 1
+        Label:
+            text: 'WELCOME!!!'
+        Label:
+            text: 'Choose a Username'
+        TextInput:
+            id: create_user
+            text:
+        BoxLayout:
+            Button:
+                size_hint: .2, 1
+                background_color: (0.0, 1.0, 1.0, 1.0)
+                text: 'Already A User?'
+                on_release: root.manager.current = 'LoginScreen'
+            Button:
+                background_color: (0.0, 1.0, 1.0, 1.0)
+                text: 'confirm username'
+                on_release: root.createuser()
 
+<LoginScreen>:
+    GridLayout:
+        cols: 1
+        Label:
+            text: 'WELCOME BACK! LOGIN'
+        Button:
+            size_hint: 1, .75
+            background_color: (0.0, 1.0, 1.0, 1.0)
+            text: 'Create Account'
+            on_release: root.manager.current = 'CreateUserScreen'
 
-
+        BoxLayout:
+            rows: 1
+            Label:
+                text: 'ENTER USERNAME HERE'
+            TextInput:
+                id: username_login
+                text:
+        Button:
+            background_color: (0.0, 1.0, 1.0, 1.0)
+            text: 'Login'
+            on_release: root.manager.current = 'PostScreen'

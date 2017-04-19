@@ -1,4 +1,4 @@
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import Screen
 from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -7,7 +7,6 @@ import requests
 
 
 class PostScreen(Screen):
-    # This posts list is here just for test purposes
     r = requests.get('http://nsommer.wooster.edu/social/posts')
     json_info = json.loads(r.content)
     posts = json.loads(r.content)
