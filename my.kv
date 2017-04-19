@@ -3,6 +3,7 @@
         cols: 1
         BoxLayout:
             Button:
+                size_hint: .10, 1
                 id: return_to_timeline
                 text: 'timeline'
                 background_color: (0.0, 1.0, 1.0, 1.0)
@@ -10,16 +11,17 @@
             Label:
                 text: 'Private Message'
         ScrollView:
+            size_hint: 1, 4
             Label:
                 id: Messenger_Label
                 text:
         BoxLayout:
             TextInput:
-                size:
+                size_hint: .9, 2
                 id: Messenger_text
                 text:
             Button:
-                size_hint: .10,1
+                size_hint: .10, 2
                 id: Messenger_button
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 text: 'send'
@@ -32,7 +34,7 @@
                 id: private_messenger_button
                 text: 'Send Private\n   Message'
                 background_color: (0.0, 1.0, 1.0, 1.0)
-                on_press: root.manager.current = 'PrivateMessenger'
+                on_press: root.manager.current = 'ChoosePMRecipient'
             Button:
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 text: 'refresh timeline'
@@ -42,12 +44,15 @@
                 cols: 1
                 id: post_widget
 
-        GridLayout:
+        BoxLayout:
             Button:
+                size_hint: .25, .75
                 id: post_screen_button
                 text: 'Wanna Post?'
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 on_press: root.manager.current = 'ScreenToPost'
+            Label:
+                text: '® 2017 Brianna, Julia, and David'
 
 <ScreenToPost>:
     GridLayout:
@@ -73,4 +78,28 @@
                 text: 'submit'
                 on_press: root.update_post()
                 on_release: root.manager.current = 'PostScreen'
+
+<ChoosePMRecipient>:
+    GridLayout:
+        cols: 1
+
+        Label:
+            text: 'WHO YOU TRYNA PM??'
+            size_hint: 1, .25
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                orientation: 'horizontal'
+                Button:
+                    background_color: (0.0, 1.0, 1.0, 1.0)
+                    text: 'cancel'
+                    on_release: root.manager.current = 'PostScreen'
+                TextInput:
+            Button:
+                text: 'confirm recipient'
+                background_color: (0.0, 1.0, 1.0, 1.0)
+                on_release: root.manager.current = 'PrivateMessenger'
+
+
+
 

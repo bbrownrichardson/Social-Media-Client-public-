@@ -3,6 +3,7 @@ from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 
+
 class PostScreen(Screen):
     # This posts list is here just for test purposes
     posts = [
@@ -53,8 +54,9 @@ class PostScreen(Screen):
         for post in PostScreen.posts:
 
             post_owner = str(post['uid'])
-            post_content = post['content'] + '\n' + post['timestamp'] + \
-                           '\n'
+            post_content = post_owner + ' said:' + '\n' + \
+                           post['content'] + '\n' + \
+                           post['timestamp'] + '\n'
             parent_widget.add_widget(Button(id=post_owner,
                 text=post_content,
                 size_hint_y = 10)) # it is this size because the scrollview

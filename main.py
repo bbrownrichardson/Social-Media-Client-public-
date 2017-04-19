@@ -5,6 +5,7 @@ from kivy.uix.screenmanager import FallOutTransition
 from PrivateMessenger import PrivateMessenger
 from PostScreen import PostScreen
 from ScreenToPost import ScreenToPost
+from ChoosePMRecipient import ChoosePMRecipient
 from mock_interface import MockServerInterface
 
 kv = Builder.load_file('my.kv')
@@ -18,6 +19,7 @@ class ScreenApp(App):
         self.manager = ScreenManager(transition=FallOutTransition())
         self.manager.add_widget(PostScreen(name='PostScreen'))
         self.manager.add_widget(PrivateMessenger(name='PrivateMessenger'))
+        self.manager.add_widget(ChoosePMRecipient(name='ChoosePMRecipient'))
         self.manager.add_widget(ScreenToPost(name='ScreenToPost'))
 
 
