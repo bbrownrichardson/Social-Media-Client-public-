@@ -106,7 +106,7 @@
         Label:
             text: 'WELCOME!!!'
         Label:
-            text: 'Choose a Username'
+            text: 'Choose a Username between 3 - 16 alphanumeric characters'
         TextInput:
             id: create_user
             text:
@@ -119,7 +119,7 @@
             Button:
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 text: 'confirm username'
-                on_release: root.createuser()
+                on_release: root.manager.current = 'PostScreen'
 
 <LoginScreen>:
     GridLayout:
