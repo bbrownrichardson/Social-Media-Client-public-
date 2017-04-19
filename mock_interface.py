@@ -22,8 +22,6 @@ class MockServerInterface(ServerInterface):
         pass
 
 
-
-
 if __name__ == '__main__':
     interface = MockServerInterface()
 
