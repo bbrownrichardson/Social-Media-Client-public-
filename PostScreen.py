@@ -1,7 +1,10 @@
 from kivy.uix.screenmanager import Screen
-from kivy.uix.widget import Widget
-from kivy.uix.button import Button
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
+from kivy.uix.button import Button
+from kivy.uix.bubble import BubbleButton
+from kivy.uix.widget import Widget
 import json
 import requests
 
@@ -22,12 +25,27 @@ class PostScreen(Screen):
             post_owner = str(post['postid'])
             post_content = "Post ID: " + str(post['postid']) + "\n" + \
                             "User ID: " + str(post['uid']) + "\n" + \
-                            "Username: " + post['username'] + "\n" + \
                             "Time: " + post['time'] + "\n" +  \
                             "Content: " + post['content'] + "\n" +  \
-                            "Parent ID: " + str(post['parentid']) + "\n" +  \
                             "Upvotes: " + str(post['upvotes'])
 
-            parent_widget.add_widget(Button(id=post_owner, text=post_content,
-                                            size_hint_y=10))
-            # it is this size because the scrollview is being weird right now
+            child_widget1 = GridLayout(cols=1)
+            child_widget1.add_widget(Label(text=post['username']))
+            child_widget1.add_widget(Label(text=post_content))
+
+            child_widget2 = BoxLayout()
+
+            child_widget2.add_widget(BubbleButton(id=post_owner, text='LIKE',
+                                                  background_color=(
+                                                      0.0, 1.0, 1.0, 1.0)))
+            child_widget2.add_widget(BubbleButton(id='edit '+ post_owner,
+                                            text= 'EDIT', background_color=(
+                                                      0.0, 1.0, 1.0, 1.0)))
+            child_widget2.add_widget(BubbleButton(id='reply_to_'+post_owner,
+                                            text= 'REPLY', background_color=(
+                                                      0.0, 1.0, 1.0, 1.0)))
+
+            child_widget1.add_widget(child_widget2)
+            parent_widget.add_widget(child_widget1)
+            # parent_widget.add_widget(Button(id=post_owner, text=post_content,
+                                            # size_hint_y=10))
