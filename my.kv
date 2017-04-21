@@ -33,6 +33,7 @@
     GridLayout:
         cols: 1
         Label:
+            id: welcome_label
             text: 'WELCOME TO YOUR TIMELINE'
             size_hint: 1, .2
         BoxLayout:
@@ -50,7 +51,7 @@
         ScrollView:
             size_hint: 1, 2
             GridLayout:
-                size_hint: 1, 2.5
+                size_hint: 1, 8
                 cols: 1
                 id: post_widget
 
@@ -130,14 +131,15 @@
             text:
         BoxLayout:
             Button:
-                size_hint: .2, 2
+                size_hint: .2, 1
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 text: 'Already A User?'
                 on_release: root.manager.current = 'LoginScreen'
             Button:
+                id: create_username
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 text: 'confirm username'
-                on_release: root.manager.current = 'PostScreen'
+                on_release: root.create_a_user()
         Label:
             size_hint: 1, .15
             text: '® 2017 Brianna, Julia, and David'
@@ -167,7 +169,7 @@
             id: login_button
             background_color: (0.0, 1.0, 1.0, 1.0)
             text: 'Login'
-            on_release: root.manager.current = 'PostScreen'
+            on_release: root.kivy_login()
         Label:
             size_hint: 1, .15
             text: '® 2017 Brianna, Julia, and David'

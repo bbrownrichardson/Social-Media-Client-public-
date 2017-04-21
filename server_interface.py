@@ -9,5 +9,13 @@ class ServerInterface:
         pass
 
     @abc.abstractmethod
-    def add_post(self, content, parent_id=-1):
+    def add_post(self, content):
+        pass
+
+    @abc.abstractmethod
+    def get_users(self, username):
+        pass
+
+    @abc.abstractmethod
+    def add_users(self, username):
         pass
