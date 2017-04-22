@@ -20,8 +20,8 @@ class ScreenApp(App):
     def build(self):
         # self.server_interface = MockServerInterface()
         self.manager = ScreenManager(transition=FallOutTransition())
-        self.manager.add_widget(CreateUserScreen(name='CreateUserScreen'))
         self.manager.add_widget(LoginScreen(name='LoginScreen'))
+        self.manager.add_widget(CreateUserScreen(name='CreateUserScreen'))
         self.manager.add_widget(PostScreen(name='PostScreen'))
         self.manager.add_widget(PrivateMessenger(name='PrivateMessenger'))
         self.manager.add_widget(ChoosePMRecipient(name='ChoosePMRecipient'))

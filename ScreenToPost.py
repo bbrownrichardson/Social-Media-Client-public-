@@ -3,20 +3,24 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from mock_interface import MockServerInterface
-from LoginScreen import LoginScreen
 from PostScreen import PostScreen
 
 
 class ScreenToPost(Screen):
 
+
     def update_post(self):
+        current_uid = MockServerInterface.temp_uid
+        current_token = MockServerInterface.temp_token
         temp_content = self.ids.Post_text.text
 
-        if MockServerInterface.add_post(self, content=temp_content):
+        if (MockServerInterface.add_post(self, temp_content, current_uid,
+                                         current_token,parentid=1) ):
 
             self.ids.Post_button.on_press = self.manager.current = \
                 'PostScreen'
-            # PostScreen.CreatePostWidgets(self)
+            self.ids.Post_button.on_press = PostScreen.CreatePostWidgets(self)
+            self.ids.Post_text.text = ''
 
         else:
             # This will need to replaced with some error pop or something
@@ -24,7 +28,7 @@ class ScreenToPost(Screen):
             self.ids.Post_button.text = 'Uh Oh'
 
     def clear_post_text(self):
-        self.ids['Post_text'].text = ''  # clears the text if user cancels
+        self.ids.Post_text.text = ''  # clears the text if user cancels
                                         # making a post
 
     def popup_open(self):
