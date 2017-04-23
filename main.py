@@ -8,6 +8,7 @@ from ScreenToPost import ScreenToPost
 from ChoosePMRecipient import ChoosePMRecipient
 from CreateUserScreen import CreateUserScreen
 from LoginScreen import LoginScreen
+from ConversationScreen import ConversationScreen
 from mock_interface import MockServerInterface
 
 kv = Builder.load_file('my.kv')
@@ -23,6 +24,7 @@ class ScreenApp(App):
         self.manager.add_widget(LoginScreen(name='LoginScreen'))
         self.manager.add_widget(CreateUserScreen(name='CreateUserScreen'))
         self.manager.add_widget(PostScreen(name='PostScreen'))
+        self.manager.add_widget(ConversationScreen(name='ConversationScreen'))
         self.manager.add_widget(PrivateMessenger(name='PrivateMessenger'))
         self.manager.add_widget(ChoosePMRecipient(name='ChoosePMRecipient'))
         self.manager.add_widget(ScreenToPost(name='ScreenToPost'))

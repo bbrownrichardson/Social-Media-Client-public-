@@ -8,7 +8,6 @@ from kivy.uix.bubble import BubbleButton
 
 class PrivateMessenger(Screen):
 
-
     def send_message(self):
 
         recipientid = ChoosePMRecipient.chosen_uid

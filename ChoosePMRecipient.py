@@ -7,8 +7,8 @@ class ChoosePMRecipient(Screen):
 
     def select_user(self):
         chosen_user = self.ids.choose_recipient.text
-        if MockServerInterface.get_users(self, chosen_user):
-            ChoosePMRecipient.chosen_uid = MockServerInterface.temp_uid
+        if MockServerInterface.get_recipient_users(self, chosen_user):
+            ChoosePMRecipient.chosen_uid = MockServerInterface.temp_recipientid
             self.ids.confirm_recipient.on_press = self.manager.current = \
                 'PrivateMessenger'
             self.ids.choose_recipient.text = ''

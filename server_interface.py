@@ -25,5 +25,9 @@ class ServerInterface:
         pass
 
     @abc.abstractmethod
+    def get_recipient_users(self, username):
+        pass
+
+    @abc.abstractmethod
     def get_messages(self, uid, otherid, token):
         pass

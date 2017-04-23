@@ -45,13 +45,17 @@
 <PostScreen>:
     GridLayout:
         cols: 1
+        Button:
+            text: 'CONVERSATIONS'
+            background_color: (0.0, 1.0, 1.0, 1.0)
+            on_release: root.manager.current = 'ConversationScreen'
         BoxLayout:
             Button:
                 size_hint: .5, .3
                 id: private_messenger_button
                 text: 'SEND PRIVATE MESSAGE'
                 background_color: (0.0, 1.0, 1.0, 1.0)
-                on_press: root.manager.current = 'ChoosePMRecipient'
+                on_release: root.manager.current = 'ChoosePMRecipient'
             Label:
                 id: welcome_label
                 text: 'WELCOME TO YOUR TIMELINE'
@@ -209,3 +213,26 @@
             text: 'Got It'
             on_release: root.manager.current = 'PostScreen'
 
+
+
+<ConversationScreen>:
+    GridLayout:
+        cols: 1
+        BoxLayout:
+            Button:
+                background_color: (0.0, 1.0, 1.0, 1.0)
+                text: 'TIMELINE'
+                on_release: root.manager.current = 'PostScreen'
+            Label:
+                id: conversaton_label
+                text: 'PREVIOUS CONVERSATIONS'
+            Button:
+                text: 'GET CONVERSATIONS'
+                background_color: (0.0, 1.0, 1.0, 1.0)
+                on_release: root.get_conversation_list()
+        ScrollView:
+            size_hint: 1, 5
+            GridLayout:
+                size_hint: 1, 3
+                id: conversation_holder
+                cols:1

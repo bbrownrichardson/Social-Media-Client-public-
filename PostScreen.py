@@ -18,11 +18,8 @@ class PostScreen(Screen):
             for post in MockServerInterface.temp_posts:
 
                 post_owner = str(post['postid'])
-                post_content = "Post ID: " + str(post['postid']) + "\n" + \
-                            "User ID: " + str(post['uid']) + "\n" + \
-                            "Time: " + post['time'] + "\n" +  \
-                            "Content: " + post['content'] + "\n" +  \
-                            "Upvotes: " + str(post['upvotes'])
+                post_content = "Content: " + post['content'] + "\n" +  \
+                            "Time: " + post['time'] + "\n"
 
                 second_layer = GridLayout(cols=1)
                 second_layer.add_widget(BubbleButton(text=post['username'],
@@ -32,7 +29,9 @@ class PostScreen(Screen):
 
                 third_layer = BoxLayout()
 
-                third_layer.add_widget(BubbleButton(id=post_owner, text='LIKE',
+                third_layer.add_widget(BubbleButton(id=post_owner,
+                                                    text='LIKE: ' + str(
+                                                        post['upvotes']),
                                                   background_color=(
                                                       0.0, 1.0, 1.0, 1.0)))
                 third_layer.add_widget(BubbleButton(id='edit '+post_owner,
