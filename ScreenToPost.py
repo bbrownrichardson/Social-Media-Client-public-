@@ -4,7 +4,7 @@ from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from mock_interface import MockServerInterface
 from PostScreen import PostScreen
-
+from kivy.uix.label import Label
 
 class ScreenToPost(Screen):
 
@@ -25,7 +25,16 @@ class ScreenToPost(Screen):
         else:
             # This will need to replaced with some error pop or something
             # of that nature
-            self.ids.Post_button.text = 'Uh Oh'
+            content = BoxLayout(orientation='vertical')
+            message_label = Label(
+                text="There is a problem interacting with the server, please try again")
+            dismiss_button = Button(text='OK')
+            content.add_widget(message_label)
+            content.add_widget(dismiss_button)
+            popup = Popup(title='Error', content=content,
+                          size_hint=(0.3, 0.25))
+            dismiss_button.bind(on_press=popup.dismiss)
+            popup.open()
 
     def clear_post_text(self):
         self.ids.Post_text.text = ''  # clears the text if user cancels

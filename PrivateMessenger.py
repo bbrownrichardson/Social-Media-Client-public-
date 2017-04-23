@@ -55,5 +55,15 @@ class PrivateMessenger(Screen):
                 messages_holder.add_widget(layer1)
 
         else:
-            self.ids.message_label.text = 'SOMETHING WENT WRONG'
+            content = BoxLayout(orientation='vertical')
+            message_label = Label(
+                text="There is a problem connecting to the server please try again")
+            dismiss_button = Button(text='OK')
+            content.add_widget(message_label)
+            content.add_widget(dismiss_button)
+            popup = Popup(title='Error', content=content,
+                          size_hint=(0.3, 0.25))
+            dismiss_button.bind(on_press=popup.dismiss)
+            popup.open()
+
 
