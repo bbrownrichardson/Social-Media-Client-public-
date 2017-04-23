@@ -5,15 +5,18 @@ from mock_interface import MockServerInterface
 class LoginScreen(Screen):
     current_uid = None
     current_username = None
+    current_token = None
 
     def kivy_login(self):
         current_username = self.ids.username_login.text
+        current_token = self.ids.token_login.text
 
         if MockServerInterface.get_users(self,current_username):
             self.ids.login_button.on_press = self.manager.current = \
                 'PostScreen'
             LoginScreen.current_uid = MockServerInterface.temp_uid
             LoginScreen.current_username = MockServerInterface.temp_username
+            MockServerInterface.temp_token = current_token
             self.ids.username_login.text = ''
 
         else:

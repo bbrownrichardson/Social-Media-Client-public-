@@ -11,7 +11,7 @@ class MockServerInterface(ServerInterface):
     temp_uid = None
     temp_content = None
     temp_time = None
-    temp_token = 'zkbipphf'
+    temp_token = None
     # jenny's (a created user) token was placed here
     # for test purposes as I currently dont know how to get access to tokens
     temp_messagedict = None

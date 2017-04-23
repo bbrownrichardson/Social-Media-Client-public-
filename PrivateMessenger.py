@@ -29,23 +29,17 @@ class PrivateMessenger(Screen):
         token = MockServerInterface.temp_token
         messages_holder = self.ids.holder_label
 
-        if MockServerInterface.get_messages(self,senderid,
+        if MockServerInterface.get_messages(self, senderid,
                                             otherid,
                                             token):
             messages_holder.clear_widgets()
             for item in MockServerInterface.temp_messagedict:
-                layer1 = GridLayout(cols=1, size_hint=(1,1))
-                if item['sender'] == LoginScreen.current_username:
-                    layer1.add_widget(BubbleButton(text='You' + ' said:\n\n' +
-                                              item['content'] + item['time'],
-                                             size_hint=(1,5), halign='right',
-                                                   text_size=self.size))
-                else:
-                    layer1.add_widget(BubbleButton(text=item['sender'] + ' '
-                                                                      'said:\n'
-                                             + item['content'],
-                                             size_hint=(1,5), halign='left',
-                                                   text_size=self.size))
+                layer1 = GridLayout(cols=1, size_hint=(1, 2))
+                layer1.add_widget(BubbleButton(text=item['sender'] +
+                                                    ' said: ' +
+                                              item['content'] + '\n\n'+
+                                                        item['time'],
+                                             size_hint=(1,10)))
 
                 messages_holder.add_widget(layer1)
 
