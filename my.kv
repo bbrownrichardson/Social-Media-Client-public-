@@ -139,6 +139,7 @@
             size_hint: 1,3
             source: 'welcome_banner2.jpg'
         Label:
+            id: token
             text: 'Choose a Username between 3 - 16 alphanumeric characters'
         TextInput:
             id: create_user
@@ -147,12 +148,12 @@
             Button:
                 size_hint: .2, 1
                 background_color: (0.0, 1.0, 1.0, 1.0)
-                text: 'Already A User?'
+                text: 'BACK TO LOGIN'
                 on_release: root.manager.current = 'LoginScreen'
             Button:
                 id: create_username
                 background_color: (0.0, 1.0, 1.0, 1.0)
-                text: 'CONFIRM USERNAME'
+                text: 'CREATE USERNAME'
                 on_release: root.create_a_user()
         Label:
             size_hint: 1, .15
@@ -194,3 +195,17 @@
         Label:
             size_hint: 1, .15
             text: '® 2017 Brianna, Julia, and David'
+
+<UserInfoScreen>:
+    GridLayout:
+        cols: 1
+        Label:
+            text: 'Remember This!'
+        Label:
+            id: user_and_token
+            text:
+        Button:
+            id: continue
+            text: 'Got It'
+            on_release: root.manager.current = 'PostScreen'
+
