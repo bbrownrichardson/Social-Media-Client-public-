@@ -14,11 +14,15 @@ class CreateUserScreen(Screen):
             CreateUserScreen.current_username = \
                 MockServerInterface.temp_username
             CreateUserScreen.current_token = MockServerInterface.temp_token
-            self.ids.create_username.on_press = self.manager.current = \
-                'PostScreen'
+            self.ids.create_username.on_press = self.ids.token.text = 'Your User Name is: ' + MockServerInterface.temp_username + '\n' + 'Your Token is: ' + MockServerInterface.temp_token
+            #self.manager.current = 'UserInfoScreen'
             self.ids.create_user.text = ''
+
+
+
+
         else:
             # This will need to replaced with an error popup or something of
             # of that nature
-            self.ids.create_username.text = 'OH NO'
+            self.ids.create_username.text = 'User Name is Taken Try Again'
 
