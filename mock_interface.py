@@ -12,10 +12,11 @@ class MockServerInterface(ServerInterface):
     temp_content = None
     temp_time = None
     temp_token = None
-    # jenny's (a created user) token was placed here
-    # for test purposes as I currently dont know how to get access to tokens
+    temp_recipient = None
+    temp_recipientid = None
     temp_messagedict = None
     temp_posts = None
+    temp_conversationdict = None
 
 
     def __init__(self, uid, token):
@@ -96,6 +97,20 @@ class MockServerInterface(ServerInterface):
             return False
 
     @staticmethod
+    def get_recipient_users(self, username):
+        url = 'http://nsommer.wooster.edu/social/users'
+        user = requests.get(url,
+                            data={'username': username})
+        temp_dict = json.loads(user.content)
+        if user.status_code == 200:
+            MockServerInterface.temp_recipient = temp_dict['username']
+            MockServerInterface.temp_recipientid = temp_dict['uid']
+            # MockServerInterface.temp_token = temp_dict['token']
+            return True
+        else:
+            return False
+
+    @staticmethod
     def get_messages(self, uid, otherid, token):
         """
         :param uid: id of the the user that is logged in
@@ -116,6 +131,22 @@ class MockServerInterface(ServerInterface):
             return True
         else:
             return False
+
+    @staticmethod
+    def get_conversations(self, uid, token):
+        url = 'http://nsommer.wooster.edu/social/conversations'
+        data={
+            'uid': uid,
+            'token': token
+        }
+        response = requests.get(url, data=data)
+        if response.status_code == 200:
+            MockServerInterface.temp_conversationdict = response.json()
+            return True
+        else:
+            return False
+
+
 
 
 # if __name__ == '__main__':
