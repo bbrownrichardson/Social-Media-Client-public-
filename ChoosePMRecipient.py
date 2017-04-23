@@ -1,5 +1,9 @@
 from kivy.uix.screenmanager import Screen
 from mock_interface import MockServerInterface
+from kivy.uix.popup import Popup
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.label import Label
 
 
 class ChoosePMRecipient(Screen):
@@ -16,4 +20,12 @@ class ChoosePMRecipient(Screen):
         else:
             # This will need to be replaced by an error up or something of
             # of that nature
-            self.ids.confirm_recipient.text = 'UH OH'
+            content = BoxLayout(orientation='vertical')
+            message_label = Label(text="Please enter a valid username to send a message")
+            dismiss_button = Button(text='OK')
+            content.add_widget(message_label)
+            content.add_widget(dismiss_button)
+            popup = Popup(title='Error', content=content,
+                          size_hint=(0.3, 0.25))
+            dismiss_button.bind(on_press=popup.dismiss)
+            popup.open()

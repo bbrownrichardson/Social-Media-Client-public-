@@ -18,7 +18,6 @@ class MockServerInterface(ServerInterface):
     temp_posts = None
     temp_conversationdict = None
 
-
     def __init__(self, uid, token):
         self.uid = uid
         self.token = token

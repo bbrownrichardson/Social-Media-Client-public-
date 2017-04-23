@@ -4,7 +4,10 @@ from LoginScreen import LoginScreen
 from ChoosePMRecipient import ChoosePMRecipient
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.bubble import BubbleButton
-
+from kivy.uix.popup import Popup
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.label import Label
 
 class PrivateMessenger(Screen):
 
@@ -20,7 +23,16 @@ class PrivateMessenger(Screen):
             self.ids.Messenger_Label.text = 'MESSAGE SENT SUCCESSFUL'
             self.ids.Messenger_text.text = ''
         else:
-            self.ids.Messenger_Label.text = 'MESSAGE SENT FAILURE'
+            content = BoxLayout(orientation='vertical')
+            message_label = Label(
+                text="Message failed, please double check information and try again")
+            dismiss_button = Button(text='OK')
+            content.add_widget(message_label)
+            content.add_widget(dismiss_button)
+            popup = Popup(title='Error', content=content,
+                          size_hint=(0.3, 0.25))
+            dismiss_button.bind(on_press=popup.dismiss)
+            popup.open()
 
     def get_all_messages(self):
         senderid = LoginScreen.current_uid

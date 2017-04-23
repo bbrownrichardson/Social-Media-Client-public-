@@ -24,5 +24,15 @@ class CreateUserScreen(Screen):
         else:
             # This will need to replaced with an error popup or something of
             # of that nature
-            self.ids.create_username.text = 'User Name is Taken Try Again'
+            content = BoxLayout(orientation='vertical')
+            message_label = Label(
+                text="Not a valid username, please try again")
+            dismiss_button = Button(text='OK')
+            content.add_widget(message_label)
+            content.add_widget(dismiss_button)
+            popup = Popup(title='Error', content=content,
+                          size_hint=(0.3, 0.25))
+            dismiss_button.bind(on_press=popup.dismiss)
+            popup.open()
+
 

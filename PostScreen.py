@@ -4,6 +4,8 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.bubble import BubbleButton
 from mock_interface import MockServerInterface
+from kivy.uix.popup import Popup
+from kivy.uix.button import Button
 
 
 class PostScreen(Screen):
@@ -50,4 +52,12 @@ class PostScreen(Screen):
                 # parent_widget.add_widget(Button(id=post_owner, text=post_content,
                                             # size_hint_y=10))
         else:
-            pass
+            content = BoxLayout(orientation='vertical')
+            message_label = Label(text="There is a problem interacting with the server, please try again")
+            dismiss_button = Button(text='OK')
+            content.add_widget(message_label)
+            content.add_widget(dismiss_button)
+            popup = Popup(title='Error', content=content,
+                          size_hint=(0.3, 0.25))
+            dismiss_button.bind(on_press=popup.dismiss)
+            popup.open()
