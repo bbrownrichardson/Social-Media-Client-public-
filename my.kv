@@ -3,28 +3,41 @@
         cols: 1
         BoxLayout:
             Button:
-                size_hint: .10, 1
+                size_hint: .15, 1
                 id: return_to_timeline
-                text: 'timeline'
+                text: 'TIMELINE'
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 on_press: root.manager.current = 'PostScreen'
             Label:
-                text: 'Private Message'
+                id: message_label
+                text: 'PRIVATE MESSENGER'
+            Button:
+                size_hint: .15, 1
+                id: refresh_conversation
+                text: 'REFRESH\nCONVO'
+                background_color: (0.0, 1.0, 1.0, 1.0)
+                on_release: root.get_all_messages()
+        Label:
+            id: Messenger_Label
+            text:
+            size_hint: 1, .3
         ScrollView:
-            size_hint: 1, 4
-            Label:
-                id: Messenger_Label
-                text:
+            size_hint: 1, 3
+            GridLayout:
+                size_hint: 1, 3
+                cols: 1
+                id: holder_label
         BoxLayout:
             TextInput:
-                size_hint: .9, 2
+                size_hint: .9, 1
                 id: Messenger_text
                 text:
             Button:
-                size_hint: .10, 2
+                size_hint: .10, 1
                 id: Messenger_button
                 background_color: (0.0, 1.0, 1.0, 1.0)
-                text: 'send'
+                text: 'SEND'
+                on_release: root.send_message()
         Label:
             size_hint: 1, .15
             text: '® 2017 Brianna, Julia, and David'
@@ -32,38 +45,38 @@
 <PostScreen>:
     GridLayout:
         cols: 1
-        Label:
-            id: welcome_label
-            text: 'WELCOME TO YOUR TIMELINE'
-            size_hint: 1, .2
         BoxLayout:
             Button:
                 size_hint: .5, .3
                 id: private_messenger_button
-                text: 'Send Private Message'
+                text: 'SEND PRIVATE MESSAGE'
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 on_press: root.manager.current = 'ChoosePMRecipient'
+            Label:
+                id: welcome_label
+                text: 'WELCOME TO YOUR TIMELINE'
+                size_hint: 1, .2
             Button:
                 size_hint: .5, .3
                 background_color: (0.0, 1.0, 1.0, 1.0)
-                text: 'Refresh Timeline'
+                text: 'REFRESH TIMELINE'
                 on_press: root.CreatePostWidgets()
         ScrollView:
-            size_hint: 1, 2
+            size_hint: 1, 10
             GridLayout:
-                size_hint: 1, 8
+                size_hint: 1, 10
                 cols: 1
                 id: post_widget
 
         BoxLayout:
             Button:
-                size_hint: .15, .75
+                size_hint: .15, 1
                 id: post_screen_button
-                text: 'Wanna Post?'
+                text: 'WANNA POST?'
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 on_press: root.manager.current = 'ScreenToPost'
             Label:
-                size_hint: .85, .75
+                size_hint: .85, 1
                 text: '® 2017 Brianna, Julia, and David'
 
 <ScreenToPost>:
@@ -72,7 +85,7 @@
         Button:
             size_hint: .1, .05
             id: 'cancel_post_button'
-            text: 'Cancel'
+            text: 'CANCEL'
             background_color: (0.0, 1.0, 1.0, 1.0)
             on_press: root.manager.current = 'PostScreen'
             on_release: root.clear_post_text()
@@ -87,9 +100,8 @@
                 size_hint: .10,1
                 id: Post_button
                 background_color: (0.0, 1.0, 1.0, 1.0)
-                text: 'submit'
+                text: 'SUBMIT'
                 on_press: root.update_post()
-                on_release: root.manager.current = 'PostScreen'
         Label:
             size_hint: 1, .05
             text: '® 2017 Brianna, Julia, and David'
@@ -107,13 +119,15 @@
                 orientation: 'horizontal'
                 Button:
                     background_color: (0.0, 1.0, 1.0, 1.0)
-                    text: 'cancel'
+                    text: 'CANCEL'
                     on_release: root.manager.current = 'PostScreen'
                 TextInput:
+                    id: choose_recipient
             Button:
-                text: 'confirm recipient'
+                id: confirm_recipient
+                text: 'CONFIRM RECIPIENT'
                 background_color: (0.0, 1.0, 1.0, 1.0)
-                on_release: root.manager.current = 'PrivateMessenger'
+                on_release: root.select_user()
         Label:
             size_hint: 1, .05
             text: '® 2017 Brianna, Julia, and David'
@@ -138,7 +152,7 @@
             Button:
                 id: create_username
                 background_color: (0.0, 1.0, 1.0, 1.0)
-                text: 'confirm username'
+                text: 'CONFIRM USERNAME'
                 on_release: root.create_a_user()
         Label:
             size_hint: 1, .15
@@ -150,7 +164,7 @@
         Button:
             size_hint: 1, .75
             background_color: (0.0, 1.0, 1.0, 1.0)
-            text: 'Create Account'
+            text: 'CREATE ACCOUNT'
             on_release: root.manager.current = 'CreateUserScreen'
         Image:
             size_hint: 1,3
@@ -165,10 +179,17 @@
             TextInput:
                 id: username_login
                 text:
+        BoxLayout:
+            rows: 1
+            Label:
+                text: 'ENTER TOKEN HERE'
+            TextInput:
+                id: token_login
+                text:
         Button:
             id: login_button
             background_color: (0.0, 1.0, 1.0, 1.0)
-            text: 'Login'
+            text: 'LOGIN'
             on_release: root.kivy_login()
         Label:
             size_hint: 1, .15
