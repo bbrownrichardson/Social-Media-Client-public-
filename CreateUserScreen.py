@@ -19,8 +19,10 @@ class CreateUserScreen(Screen):
             CreateUserScreen.current_username = \
                 MockServerInterface.temp_username
             CreateUserScreen.current_token = MockServerInterface.temp_token
-            self.ids.create_username.on_press = self.ids.token.text = 'Your User Name is: ' + MockServerInterface.temp_username + '\n' + 'Your Token is: ' + MockServerInterface.temp_token
-            #self.manager.current = 'UserInfoScreen'
+            self.ids.token.text = 'Your User Name is: ' + \
+                                  MockServerInterface.temp_username + '\n' + \
+                                  'Your Token is: ' + \
+                                  MockServerInterface.temp_token
             self.ids.create_user.text = ''
 
         except ServerInterfaceException as e:
