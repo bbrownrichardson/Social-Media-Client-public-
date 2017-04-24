@@ -1,6 +1,10 @@
 from kivy.uix.screenmanager import Screen
 from mock_interface import MockServerInterface
-
+from ServerInterfaceException import ServerInterfaceException
+from kivy.uix.popup import Popup
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.label import Label
 
 class CreateUserScreen(Screen):
     current_uid = None
@@ -9,7 +13,8 @@ class CreateUserScreen(Screen):
 
     def create_a_user(self):
         current_username = self.ids.create_user.text
-        if MockServerInterface.add_users(self, current_username):
+        try:
+            MockServerInterface.add_users(self, current_username)
             CreateUserScreen.current_uid = MockServerInterface.temp_uid
             CreateUserScreen.current_username = \
                 MockServerInterface.temp_username
@@ -18,15 +23,12 @@ class CreateUserScreen(Screen):
             #self.manager.current = 'UserInfoScreen'
             self.ids.create_user.text = ''
 
-
-
-
-        else:
+        except ServerInterfaceException as e:
             # This will need to replaced with an error popup or something of
             # of that nature
             content = BoxLayout(orientation='vertical')
             message_label = Label(
-                text="Not a valid username, please try again")
+                text=str(e))
             dismiss_button = Button(text='OK')
             content.add_widget(message_label)
             content.add_widget(dismiss_button)

@@ -5,6 +5,7 @@ from kivy.uix.popup import Popup
 from mock_interface import MockServerInterface
 from PostScreen import PostScreen
 from kivy.uix.label import Label
+from ServerInterfaceException import ServerInterfaceException
 
 class ScreenToPost(Screen):
 
@@ -14,20 +15,21 @@ class ScreenToPost(Screen):
         current_token = MockServerInterface.temp_token
         temp_content = self.ids.Post_text.text
 
-        if (MockServerInterface.add_post(self, temp_content, current_uid,
-                                         current_token,parentid=1) ):
+        try:
+            (MockServerInterface.add_post(self, temp_content, current_uid,
+                                         current_token,parentid=1) )
 
             self.ids.Post_button.on_press = self.manager.current = \
                 'PostScreen'
             self.ids.Post_button.on_press = PostScreen.CreatePostWidgets(self)
             self.ids.Post_text.text = ''
 
-        else:
+        except ServerInterfaceException as e:
             # This will need to replaced with some error pop or something
             # of that nature
             content = BoxLayout(orientation='vertical')
             message_label = Label(
-                text="There is a problem interacting with the server, please try again")
+                text=str(e))
             dismiss_button = Button(text='OK')
             content.add_widget(message_label)
             content.add_widget(dismiss_button)

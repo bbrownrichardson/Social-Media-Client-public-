@@ -8,6 +8,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
+from ServerInterfaceException import ServerInterfaceException
 
 
 class PrivateMessenger(Screen):
@@ -19,14 +20,15 @@ class PrivateMessenger(Screen):
         token = MockServerInterface.temp_token
         content = self.ids.Messenger_text.text
 
-        if MockServerInterface.send_message(self, senderid, recipientid, token,
-                                         content):
-            self.ids.Messenger_Label.text = 'MESSAGE SENT SUCCESSFUL'
+        try:
+            MockServerInterface.send_message(self, senderid, recipientid, token,
+                                         content)
+            self.ids.Messenger_Label.text = 'MESSAGE SENT SUCCESSFULLY'
             self.ids.Messenger_text.text = ''
-        else:
+        except ServerInterfaceException as e:
             content = BoxLayout(orientation='vertical')
             message_label = Label(
-                text="Message failed, please double check information and try again")
+                text=str(e))
             dismiss_button = Button(text='OK')
             content.add_widget(message_label)
             content.add_widget(dismiss_button)
@@ -41,9 +43,10 @@ class PrivateMessenger(Screen):
         token = MockServerInterface.temp_token
         messages_holder = self.ids.holder_label
 
-        if MockServerInterface.get_messages(self, senderid,
+        try:
+            MockServerInterface.get_messages(self, senderid,
                                             otherid,
-                                            token):
+                                            token)
             messages_holder.clear_widgets()
             for item in MockServerInterface.temp_messagedict:
                 layer1 = GridLayout(cols=1, size_hint=(1, 2))
@@ -55,10 +58,10 @@ class PrivateMessenger(Screen):
 
                 messages_holder.add_widget(layer1)
 
-        else:
+        except ServerInterfaceException as e:
             content = BoxLayout(orientation='vertical')
             message_label = Label(
-                text="There is a problem connecting to the server please try again")
+                text=str(e))
             dismiss_button = Button(text='OK')
             content.add_widget(message_label)
             content.add_widget(dismiss_button)

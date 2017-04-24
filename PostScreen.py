@@ -6,7 +6,7 @@ from kivy.uix.bubble import BubbleButton
 from mock_interface import MockServerInterface
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
-
+from ServerInterfaceException import ServerInterfaceException
 
 class PostScreen(Screen):
 
@@ -15,7 +15,8 @@ class PostScreen(Screen):
         parent_widget = self.ids.post_widget # access the parent widget that
                                             # will hold all the post,
                                             # which are child widgets of it
-        if MockServerInterface.get_posts(self):
+        try:
+            MockServerInterface.get_posts(self)
             parent_widget.clear_widgets()
             for post in MockServerInterface.temp_posts:
 
@@ -51,9 +52,9 @@ class PostScreen(Screen):
                 parent_widget.add_widget(second_layer)
                 # parent_widget.add_widget(Button(id=post_owner, text=post_content,
                                             # size_hint_y=10))
-        else:
+        except ServerInterfaceException as e:
             content = BoxLayout(orientation='vertical')
-            message_label = Label(text="There is a problem interacting with the server, please try again")
+            message_label = Label(text=str(e))
             dismiss_button = Button(text='OK')
             content.add_widget(message_label)
             content.add_widget(dismiss_button)

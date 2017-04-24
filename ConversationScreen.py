@@ -6,7 +6,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-
+from ServerInterfaceException import ServerInterfaceException
 
 
 class ConversationScreen(Screen):
@@ -14,7 +14,8 @@ class ConversationScreen(Screen):
         uid = MockServerInterface.temp_uid
         token = MockServerInterface.temp_token
 
-        if MockServerInterface.get_conversations(self, uid, token):
+        try:
+            MockServerInterface.get_conversations(self, uid, token)
             conversations = MockServerInterface.temp_conversationdict
             holder = self.ids.conversation_holder
 
@@ -26,10 +27,10 @@ class ConversationScreen(Screen):
                                 background_color=(0.0, 1.0, 1.0, 1.0)))
                 holder.add_widget(layer1)
 
-        else:
+        except ServerInterfaceException as e:
             content = BoxLayout(orientation='vertical')
             message_label = Label(
-                text="There is a problem interacting with the server, please try again")
+                text=str(e))
             dismiss_button = Button(text='OK')
             content.add_widget(message_label)
             content.add_widget(dismiss_button)

@@ -1,5 +1,10 @@
 from kivy.uix.screenmanager import Screen
 from mock_interface import MockServerInterface
+from ServerInterfaceException import ServerInterfaceException
+from kivy.uix.popup import Popup
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.label import Label
 
 
 class LoginScreen(Screen):
@@ -11,7 +16,8 @@ class LoginScreen(Screen):
         current_username = self.ids.username_login.text
         current_token = self.ids.token_login.text
 
-        if MockServerInterface.get_users(self,current_username):
+        try:
+            MockServerInterface.get_users(self,current_username)
             self.ids.login_button.on_press = self.manager.current = \
                 'PostScreen'
             LoginScreen.current_uid = MockServerInterface.temp_uid
@@ -19,12 +25,12 @@ class LoginScreen(Screen):
             MockServerInterface.temp_token = current_token
             self.ids.username_login.text = ''
 
-        else:
+        except ServerInterfaceException as e:
             # This will need to be replaced by an error up or something of
             # of that nature
             content = BoxLayout(orientation='vertical')
             message_label = Label(
-                text="User not found, please try again.")
+                text=str(e))
             dismiss_button = Button(text='OK')
             content.add_widget(message_label)
             content.add_widget(dismiss_button)

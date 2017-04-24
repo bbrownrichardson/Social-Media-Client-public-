@@ -1,0 +1,2 @@
+class ServerInterfaceException(Exception):
+    pass

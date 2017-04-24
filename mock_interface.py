@@ -2,7 +2,7 @@ from __future__ import print_function
 from server_interface import ServerInterface
 import json
 import requests
-
+from ServerInterfaceException import ServerInterfaceException
 
 class MockServerInterface(ServerInterface):
     # These variables are here so it would easier to transfer current user
@@ -29,25 +29,33 @@ class MockServerInterface(ServerInterface):
         json_info = json.loads(response.content)
         if response.status_code == 200:
             MockServerInterface.temp_posts = json.loads(response.content)
-            return True
+        elif response.status_code == 400:
+            error_message = json.loads(response.content)['message']
+            raise ServerInterfaceException(error_message)
         else:
-            return False
+            raise ServerInterfaceException(
+                'Bad request with code {}'.format(response.status_code))
 
 
     @staticmethod
     def add_post(self, content, uid, token, parentid=1):
             url = 'http://nsommer.wooster.edu/social/posts'
-
             data = {
                 'uid': uid,
                 'token': token,
                 'content': content,
                 'parentid': parentid
             }
-
-            MockServerInterface.temp_token = token
-            MockServerInterface.temp_uid = uid
             response = requests.post(url, data=data)
+            if response.status_code == 200:
+                 MockServerInterface.temp_token = token
+                 MockServerInterface.temp_uid = uid
+            elif response.status_code == 400:
+                error_message = json.loads(response.content)['message']
+                raise ServerInterfaceException(error_message)
+            else:
+                raise ServerInterfaceException(
+                    'Bad request with code {}'.format(response.status_code))
 
     @staticmethod
     def get_users(self, username):
@@ -59,9 +67,12 @@ class MockServerInterface(ServerInterface):
             MockServerInterface.temp_username = temp_dict['username']
             MockServerInterface.temp_uid = temp_dict['uid']
             # MockServerInterface.temp_token = temp_dict['token']
-            return True
+        elif user.status_code == 400:
+            error_message = json.loads(user.content)['message']
+            raise ServerInterfaceException(error_message)
         else:
-            return False
+            raise ServerInterfaceException(
+                'Bad request with code {}'.format(user.status_code))
 
     @staticmethod
     def add_users(self, username):
@@ -72,9 +83,13 @@ class MockServerInterface(ServerInterface):
             MockServerInterface.temp_username = temp_dict['username']
             MockServerInterface.temp_uid = temp_dict['uid']
             MockServerInterface.temp_token = temp_dict['token']
-            return True
+        elif user.status_code == 400:
+            error_message = json.loads(user.content)['message']
+            raise ServerInterfaceException(error_message)
         else:
-            return False
+            raise ServerInterfaceException(
+                'Bad request with code {}'.format(user.status_code))
+
 
     @staticmethod
     def send_message(self, senderid, recipientid, token, content):
@@ -91,9 +106,14 @@ class MockServerInterface(ServerInterface):
         temp_dict = response.json()
         if response.status_code == 200:
             MockServerInterface.temp_messageid = temp_dict['messageid']
-            return True
+
+        elif response.status_code == 400:
+            error_message = json.loads(response.content)['message']
+            raise ServerInterfaceException(error_message)
         else:
-            return False
+            raise ServerInterfaceException(
+                'Bad request with code {}'.format(response.status_code))
+
 
     @staticmethod
     def get_recipient_users(self, username):
@@ -105,9 +125,13 @@ class MockServerInterface(ServerInterface):
             MockServerInterface.temp_recipient = temp_dict['username']
             MockServerInterface.temp_recipientid = temp_dict['uid']
             # MockServerInterface.temp_token = temp_dict['token']
-            return True
+        elif user.status_code == 400:
+            error_message = json.loads(user.content)['message']
+            raise ServerInterfaceException(error_message)
         else:
-            return False
+            raise ServerInterfaceException(
+                'Bad request with code {}'.format(user.status_code))
+
 
     @staticmethod
     def get_messages(self, uid, otherid, token):
@@ -127,9 +151,12 @@ class MockServerInterface(ServerInterface):
         temp_dict = json.loads(response.content)
         if response.status_code == 200:
             MockServerInterface.temp_messagedict = temp_dict
-            return True
+        elif response.status_code == 400:
+            error_message = json.loads(response.content)['message']
+            raise ServerInterfaceException(error_message)
         else:
-            return False
+            raise ServerInterfaceException(
+                'Bad request with code {}'.format(response.status_code))
 
     @staticmethod
     def get_conversations(self, uid, token):
@@ -141,9 +168,12 @@ class MockServerInterface(ServerInterface):
         response = requests.get(url, data=data)
         if response.status_code == 200:
             MockServerInterface.temp_conversationdict = response.json()
-            return True
+        elif response.status_code == 400:
+            error_message = json.loads(response.content)['message']
+            raise ServerInterfaceException(error_message)
         else:
-            return False
+            raise ServerInterfaceException('Bad request with code {}'.format(response.status_code))
+
 
 
 
