@@ -31,3 +31,4 @@ class ServerInterface:
     @abc.abstractmethod
     def get_messages(self, uid, otherid, token):
         pass
+    
