@@ -12,6 +12,12 @@ from ServerInterfaceException import ServerInterfaceException
 
 
 class PrivateMessenger(Screen):
+    temp_message_holder = None
+    def clear_messages(self):
+        self.manager.current = 'PostScreen'
+        if PrivateMessenger.temp_message_holder != None:
+            PrivateMessenger.temp_message_holder.clear_widgets()
+            ChoosePMRecipient.chosen_uid = None
 
     def send_message(self):
 
@@ -57,6 +63,7 @@ class PrivateMessenger(Screen):
                                              size_hint=(1,10)))
 
                 messages_holder.add_widget(layer1)
+                PrivateMessenger.temp_message_holder = messages_holder
 
         except ServerInterfaceException as e:
             content = BoxLayout(orientation='vertical')

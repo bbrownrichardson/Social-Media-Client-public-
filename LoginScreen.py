@@ -23,6 +23,7 @@ class LoginScreen(Screen):
             LoginScreen.current_username = MockServerInterface.temp_username
             MockServerInterface.temp_token = current_token
             self.ids.username_login.text = ''
+            self.ids.token_login.text = ''
 
         except ServerInterfaceException as e:
             # This will need to be replaced by an error up or something of

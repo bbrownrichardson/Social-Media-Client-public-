@@ -19,7 +19,6 @@ class ScreenToPost(Screen):
             (MockServerInterface.add_post(self, temp_content, current_uid,
                                          current_token,parentid=1) )
             self.manager.current = 'PostScreen'
-            self.ids.Post_button.on_press = PostScreen.CreatePostWidgets(self)
             self.ids.Post_text.text = ''
 
         except ServerInterfaceException as e:

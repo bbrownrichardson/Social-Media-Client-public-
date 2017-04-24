@@ -31,4 +31,8 @@ class ServerInterface:
     @abc.abstractmethod
     def get_messages(self, uid, otherid, token):
         pass
+
+    @abc.abstractmethod
+    def edit_post(self, uid, token, postid, content):
+        pass
     

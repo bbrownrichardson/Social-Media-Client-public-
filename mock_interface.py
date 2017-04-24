@@ -25,6 +25,10 @@ class MockServerInterface(ServerInterface):
 
     @staticmethod
     def get_posts(self):
+        """
+        Get all current public post
+        :return: all public post
+        """
         response = requests.get('http://nsommer.wooster.edu/social/posts')
         json_info = json.loads(response.content)
         if response.status_code == 200:
@@ -39,26 +43,40 @@ class MockServerInterface(ServerInterface):
 
     @staticmethod
     def add_post(self, content, uid, token, parentid=1):
-            url = 'http://nsommer.wooster.edu/social/posts'
-            data = {
-                'uid': uid,
-                'token': token,
-                'content': content,
-                'parentid': parentid
-            }
-            response = requests.post(url, data=data)
-            if response.status_code == 200:
-                 MockServerInterface.temp_token = token
-                 MockServerInterface.temp_uid = uid
-            elif response.status_code == 400:
-                error_message = json.loads(response.content)['message']
-                raise ServerInterfaceException(error_message)
-            else:
-                raise ServerInterfaceException(
-                    'Bad request with code {}'.format(response.status_code))
+        """
+        Create a post
+        :param content: content of the post
+        :param uid: id of the current user that is logged in
+        :param token: token of the current user that is logged in
+        :param parentid: id to show that this is a post and not a reply
+        :return:
+        """
+        url = 'http://nsommer.wooster.edu/social/posts'
+        data = {
+            'uid': uid,
+            'token': token,
+            'content': content,
+            'parentid': parentid
+        }
+        response = requests.post(url, data=data)
+        if response.status_code == 200:
+            MockServerInterface.temp_token = token
+            MockServerInterface.temp_uid = uid
+        elif response.status_code == 400:
+            error_message = json.loads(response.content)['message']
+            raise ServerInterfaceException(error_message)
+        else:
+            raise ServerInterfaceException(
+                'Bad request with code {}'.format(response.status_code))
 
     @staticmethod
     def get_users(self, username):
+        """
+        Get users that currently created used for logging in
+        and choosing PM recipient
+        :param username: username of user logging in or searching for
+        :return: uid and username of user
+        """
         url = 'http://nsommer.wooster.edu/social/users'
         user = requests.get(url,
                             data={'username': username})
@@ -76,6 +94,11 @@ class MockServerInterface(ServerInterface):
 
     @staticmethod
     def add_users(self, username):
+        """
+        Create a user
+        :param username: chosen username for new user
+        :return: username, uid, and token of new user
+        """
         url = 'http://nsommer.wooster.edu/social/users'
         user = requests.post(url, data={'username': username})
         temp_dict = user.json()
@@ -90,9 +113,16 @@ class MockServerInterface(ServerInterface):
             raise ServerInterfaceException(
                 'Bad request with code {}'.format(user.status_code))
 
-
     @staticmethod
     def send_message(self, senderid, recipientid, token, content):
+        """
+        Send messages to another user
+        :param senderid: id of the logged in user
+        :param recipientid: id of the recipient user
+        :param token: logged user's token
+        :param content: message content to be sent to user
+        :return: messageid
+        """
         url = 'http://nsommer.wooster.edu/social/messages'
 
         data = {
@@ -114,9 +144,14 @@ class MockServerInterface(ServerInterface):
             raise ServerInterfaceException(
                 'Bad request with code {}'.format(response.status_code))
 
-
     @staticmethod
     def get_recipient_users(self, username):
+        """
+        Get the recipient of a specific user for the
+        ChoosePMRecipient Screen
+        :param username: username of the user you looking for
+        :return: id of a user
+        """
         url = 'http://nsommer.wooster.edu/social/users'
         user = requests.get(url,
                             data={'username': username})
@@ -131,7 +166,6 @@ class MockServerInterface(ServerInterface):
         else:
             raise ServerInterfaceException(
                 'Bad request with code {}'.format(user.status_code))
-
 
     @staticmethod
     def get_messages(self, uid, otherid, token):
@@ -160,6 +194,13 @@ class MockServerInterface(ServerInterface):
 
     @staticmethod
     def get_conversations(self, uid, token):
+        """
+        Get conversation objects of logged in user
+        :param uid: id of the logged in user
+        :param token: token of the logged in user
+        :return: uid and username of each of the users logged in user has
+        had conversations with
+        """
         url = 'http://nsommer.wooster.edu/social/conversations'
         data={
             'uid': uid,
@@ -173,10 +214,6 @@ class MockServerInterface(ServerInterface):
             raise ServerInterfaceException(error_message)
         else:
             raise ServerInterfaceException('Bad request with code {}'.format(response.status_code))
-
-
-
-
 
 
 # if __name__ == '__main__':

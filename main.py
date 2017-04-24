@@ -9,7 +9,6 @@ from ChoosePMRecipient import ChoosePMRecipient
 from CreateUserScreen import CreateUserScreen
 from LoginScreen import LoginScreen
 from ConversationScreen import ConversationScreen
-from mock_interface import MockServerInterface
 
 kv = Builder.load_file('my.kv')
 

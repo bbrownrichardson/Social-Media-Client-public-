@@ -7,7 +7,7 @@
                 id: return_to_timeline
                 text: 'TIMELINE'
                 background_color: (0.0, 1.0, 1.0, 1.0)
-                on_press: root.manager.current = 'PostScreen'
+                on_press: root.clear_messages()
             Label:
                 id: message_label
                 text: 'PRIVATE MESSENGER'
@@ -80,8 +80,14 @@
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 on_press: root.manager.current = 'ScreenToPost'
             Label:
-                size_hint: .85, 1
+                size_hint: .70, 1
                 text: '® 2017 Brianna, Julia, and David'
+            Button:
+                size_hint: .15, 1
+                text: 'LOG OUT'
+                background_color: (0.0, 1.0, 1.0, 1.0)
+                on_release: root.manager.current = 'LoginScreen'
+
 
 <ScreenToPost>:
     GridLayout:
@@ -124,8 +130,9 @@
                 Button:
                     background_color: (0.0, 1.0, 1.0, 1.0)
                     text: 'CANCEL'
-                    on_release: root.manager.current = 'PostScreen'
+                    on_release: root.cancel_button()
                 TextInput:
+                    multiline: False
                     id: choose_recipient
             Button:
                 id: confirm_recipient
@@ -146,6 +153,7 @@
             id: token
             text: 'Choose a Username between 3 - 16 alphanumeric characters'
         TextInput:
+            multiline: False
             id: create_user
             text:
         BoxLayout:
@@ -182,6 +190,7 @@
             Label:
                 text: 'ENTER USERNAME HERE'
             TextInput:
+                multiline: False
                 id: username_login
                 text:
         BoxLayout:
@@ -189,7 +198,10 @@
             Label:
                 text: 'ENTER TOKEN HERE'
             TextInput:
+                password: True
+                multiline: False
                 id: token_login
+                allow_copy: False
                 text:
         Button:
             id: login_button
@@ -222,7 +234,7 @@
             Button:
                 background_color: (0.0, 1.0, 1.0, 1.0)
                 text: 'TIMELINE'
-                on_release: root.manager.current = 'PostScreen'
+                on_release: root.clear_conversation_widgets()
             Label:
                 id: conversaton_label
                 text: 'PREVIOUS CONVERSATIONS'

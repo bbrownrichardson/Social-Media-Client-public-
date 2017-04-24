@@ -10,6 +10,12 @@ from ServerInterfaceException import ServerInterfaceException
 
 
 class ConversationScreen(Screen):
+    temp_convo_holder = None
+    def clear_conversation_widgets(self):
+        self.manager.current = 'PostScreen'
+        if ConversationScreen.temp_convo_holder != None:
+            ConversationScreen.temp_convo_holder.clear_widgets()
+
     def get_conversation_list(self):
         uid = MockServerInterface.temp_uid
         token = MockServerInterface.temp_token
@@ -26,6 +32,7 @@ class ConversationScreen(Screen):
                                                size_hint=(1,2),
                                 background_color=(0.0, 1.0, 1.0, 1.0)))
                 holder.add_widget(layer1)
+                ConversationScreen.temp_convo_holder = holder
 
         except ServerInterfaceException as e:
             content = BoxLayout(orientation='vertical')

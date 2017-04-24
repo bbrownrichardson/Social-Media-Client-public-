@@ -8,13 +8,15 @@ from ServerInterfaceException import ServerInterfaceException
 
 class ChoosePMRecipient(Screen):
     chosen_uid = None
+    def cancel_button(self):
+        self.ids.choose_recipient.text = ''
+        self.manager.current = 'PostScreen'
 
     def select_user(self):
         chosen_user = self.ids.choose_recipient.text
         try:
             MockServerInterface.get_recipient_users(self, chosen_user)
             ChoosePMRecipient.chosen_uid = MockServerInterface.temp_recipientid
-            #self.ids.confirm_recipient.on_press = \
             self.manager.current = 'PrivateMessenger'
             self.ids.choose_recipient.text = ''
 
