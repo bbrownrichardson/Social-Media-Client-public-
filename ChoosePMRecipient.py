@@ -14,8 +14,8 @@ class ChoosePMRecipient(Screen):
         try:
             MockServerInterface.get_recipient_users(self, chosen_user)
             ChoosePMRecipient.chosen_uid = MockServerInterface.temp_recipientid
-            self.ids.confirm_recipient.on_press = self.manager.current = \
-                'PrivateMessenger'
+            #self.ids.confirm_recipient.on_press = \
+            self.manager.current = 'PrivateMessenger'
             self.ids.choose_recipient.text = ''
 
         except ServerInterfaceException as e:
