@@ -37,6 +37,8 @@ class PostScreen(Screen):
                                                         post['upvotes']),
                                                   background_color=(
                                                       0.0, 1.0, 1.0, 1.0)))
+                                                   # on_press= post['upvotes'])
+
                 third_layer.add_widget(BubbleButton(id='edit '+post_owner,
                                             text= 'EDIT', background_color=(
                                                       0.0, 1.0, 1.0, 1.0)))
