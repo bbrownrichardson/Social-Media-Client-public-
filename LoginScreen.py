@@ -18,8 +18,7 @@ class LoginScreen(Screen):
 
         try:
             MockServerInterface.get_users(self,current_username)
-            self.ids.login_button.on_press = self.manager.current = \
-                'PostScreen'
+            self.manager.current = 'PostScreen'
             LoginScreen.current_uid = MockServerInterface.temp_uid
             LoginScreen.current_username = MockServerInterface.temp_username
             MockServerInterface.temp_token = current_token
